@@ -3,6 +3,6 @@ export interface Customer {
   firstName: string;
   lastName: string;
   email: string;
-  birthDate: Date;
-  createDate: Date;
+  birthDate: string;
+  createDate: string;
 }

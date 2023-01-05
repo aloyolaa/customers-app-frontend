@@ -5,13 +5,18 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {DirectiveComponent} from './directive/directive.component';
-import {CustomersComponent} from './customers/customers.component';
+import {CustomersComponent} from './customers/components/customers/customers.component';
 import {RouterModule, Routes} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
+import {FormComponent} from './customers/components/form/form.component';
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {path: '', redirectTo: '/customers', pathMatch: 'full'},
   {path: 'directives', component: DirectiveComponent},
-  {path: 'customers', component: CustomersComponent}
+  {path: 'customers', component: CustomersComponent},
+  {path: 'customers/form', component: FormComponent},
+  {path: 'customers/form/:id', component: FormComponent}
 ];
 
 @NgModule({
@@ -20,11 +25,14 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     DirectiveComponent,
-    CustomersComponent
+    CustomersComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    HttpClientModule,
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

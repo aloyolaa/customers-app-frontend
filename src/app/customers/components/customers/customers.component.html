@@ -1,0 +1,45 @@
+<div class="card border-primary mb-3">
+  <div class="card-header">Customers</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">CustomerModel List</h5>
+    <div class="my-2 text-left">
+      <button type="button" class="btn btn-primary" [routerLink]="['/customers/form']">Create Customer</button>
+    </div>
+    <div *ngIf="customers.length == 0" class="alert alert-info">
+      There are no registered customers.
+    </div>
+    <table class="table table-bordered table-striped" *ngIf="customers.length > 0">
+      <caption>Registered customer list</caption>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Birth Date</th>
+        <th>Create Date</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{customer.id}}</td>
+        <td>{{customer.firstName}}</td>
+        <td>{{customer.lastName}}</td>
+        <td>{{customer.email}}</td>
+        <td>{{customer.birthDate}}</td>
+        <td>{{customer.createDate}}</td>
+        <td>
+          <button type="button" name="update" [routerLink]="['/customers/form', customer.id]" class="btn btn-primary">
+            Update
+          </button>
+        </td>
+        <td>
+          <button type="button" name="delete" (click)="delete(customer)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
