@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Customer} from "../../core/model/customer.model";
-import {catchError, Observable, throwError} from "rxjs";
+import {catchError, map, Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import Sweetalert2 from "sweetalert2";
 import {Router} from "@angular/router";
@@ -15,7 +15,19 @@ export class CustomerService {
   }
 
   getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(`${this.url}/`);
+    return this.http.get(`${this.url}/`)
+      .pipe(
+        map(response => {
+            let customers = response as Customer[];
+            return customers.map(customer => {
+              customer.firstName = customer.firstName.toUpperCase();
+              //customer.birthDate = formatDate(customer.birthDate, 'EEEE dd, MMMM ,yyyy', 'en-US');
+              //customer.createDate = formatDate(customer.createDate, 'dd-MM-yyyy HH:mm:ss', 'en-US');
+              return customer;
+            });
+          }
+        )
+      );
   }
 
   getCustomer(id: number): Observable<Customer> {
