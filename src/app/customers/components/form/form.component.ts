@@ -10,7 +10,7 @@ import Sweetalert2 from "sweetalert2";
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-  title = 'CustomerModel Form'
+  title = 'CustomerModel Form';
   customer: Customer = {
     id: 0,
     firstName: '',
@@ -18,7 +18,8 @@ export class FormComponent implements OnInit {
     email: '',
     birthDate: '',
     createDate: '',
-  }
+  };
+  errors: string[] = [];
 
   constructor(private customerService: CustomerService, private router: Router, private activatedRouter: ActivatedRoute) {
   }
@@ -44,29 +45,36 @@ export class FormComponent implements OnInit {
 
   create(): void {
     this.customerService.save(this.customer)
-      .subscribe(
-        customer => {
+      .subscribe({
+        next: customer => {
           this.router.navigate(['/customers'])
           Sweetalert2.fire({
             icon: 'success',
             title: 'Customer saved successfully',
             text: `Customer ${customer.firstName} has been saved`
           })
+        },
+        error: err => {
+          this.errors = err.error.errors as string[]
+          console.log(this.errors)
         }
-      );
+      });
   }
 
   update(): void {
     this.customerService.update(this.customer)
-      .subscribe(
-        customer => {
+      .subscribe({
+        next: customer => {
           this.router.navigate(['/customers'])
           Sweetalert2.fire({
             icon: 'success',
             title: 'Customer updated successfully',
             text: `Customer ${customer.firstName} has been updated`
           })
+        },
+        error: err => {
+          this.errors = err.error.errors as string[]
         }
-      );
+      });
   }
 }

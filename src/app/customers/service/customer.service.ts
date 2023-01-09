@@ -37,6 +37,9 @@ export class CustomerService {
     return this.http.post<Customer>(`${this.url}/save`, customer)
       .pipe(
         catchError(e => {
+          if (e.error.status == 400) {
+            return throwError(() => e);
+          }
           Sweetalert2.fire({
             icon: 'error',
             title: `${e.error.title}`,
@@ -51,6 +54,9 @@ export class CustomerService {
     return this.http.put<Customer>(`${this.url}/update/${customer.id}`, customer)
       .pipe(
         catchError(e => {
+          if (e.error.status == 400) {
+            return throwError(() => e);
+          }
           Sweetalert2.fire({
             icon: 'error',
             title: `${e.error.title}`,
