@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class CustomerService {
-  private url = 'http://localhost:8080/api/customers';
+  private url = 'http://localhost:8080/api/v1/customers';
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -25,6 +25,20 @@ export class CustomerService {
               //customer.createDate = formatDate(customer.createDate, 'dd-MM-yyyy HH:mm:ss', 'en-US');
               return customer;
             });
+          }
+        )
+      );
+  }
+
+  getCustomersByPage(page: number): Observable<any> {
+    return this.http.get(`${this.url}/page/${page}`)
+      .pipe(
+        map((response: any) => {
+            (response.content as Customer[]).forEach(customer => {
+              customer.firstName = customer.firstName.toUpperCase();
+              return customer;
+            });
+            return response;
           }
         )
       );

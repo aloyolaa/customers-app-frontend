@@ -10,11 +10,13 @@ import {RouterModule, Routes} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import {FormComponent} from './customers/components/form/form.component';
 import {FormsModule} from "@angular/forms";
+import { PaginatorComponent } from './paginator/paginator.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/customers', pathMatch: 'full'},
   {path: 'directives', component: DirectiveComponent},
   {path: 'customers', component: CustomersComponent},
+  {path: 'customers/page/:page', component: CustomersComponent},
   {path: 'customers/form', component: FormComponent},
   {path: 'customers/form/:id', component: FormComponent}
 ];
@@ -26,7 +28,8 @@ const routes: Routes = [
     FooterComponent,
     DirectiveComponent,
     CustomersComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
