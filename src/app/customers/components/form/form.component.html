@@ -28,7 +28,9 @@
       <div class="form-group">
         <label for="birthDate" class="col-form-label col-sm-2">Birth Date</label>
         <div class="col-sm-6">
-          <input type="date" id="birthDate" name="birthDate" class="form-control" [(ngModel)]="customer.birthDate">
+          <input matInput [matDatepicker]="picker" name="birthDate" [(ngModel)]="customer.birthDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </div>
       </div>
       <div class="form-group">
