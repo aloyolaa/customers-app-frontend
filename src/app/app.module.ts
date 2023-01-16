@@ -1,27 +1,29 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import {AppComponent} from './app.component';
-import {HeaderComponent} from './header/header.component';
-import {FooterComponent} from './footer/footer.component';
-import {DirectiveComponent} from './directive/directive.component';
-import {CustomersComponent} from './customers/components/customers/customers.component';
-import {RouterModule, Routes} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
-import {FormComponent} from './customers/components/form/form.component';
-import {FormsModule} from "@angular/forms";
-import {PaginatorComponent} from './paginator/paginator.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatMomentDateModule} from "@angular/material-moment-adapter";
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { DirectiveComponent } from './directive/directive.component';
+import { CustomersComponent } from './customers/components/customers/customers.component';
+import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { FormComponent } from './customers/components/form/form.component';
+import { FormsModule } from '@angular/forms';
+import { PaginatorComponent } from './paginator/paginator.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { DetailComponent } from './customers/components/detail/detail.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/customers', pathMatch: 'full'},
-  {path: 'directives', component: DirectiveComponent},
-  {path: 'customers', component: CustomersComponent},
-  {path: 'customers/page/:page', component: CustomersComponent},
-  {path: 'customers/form', component: FormComponent},
-  {path: 'customers/form/:id', component: FormComponent}
+  { path: '', redirectTo: '/customers', pathMatch: 'full' },
+  { path: 'directives', component: DirectiveComponent },
+  { path: 'customers', component: CustomersComponent },
+  { path: 'customers/page/:page', component: CustomersComponent },
+  { path: 'customers/form', component: FormComponent },
+  { path: 'customers/form/:id', component: FormComponent },
+  { path: 'customers/detail/:id', component: DetailComponent },
 ];
 
 @NgModule({
@@ -32,7 +34,8 @@ const routes: Routes = [
     DirectiveComponent,
     CustomersComponent,
     FormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    DetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,10 +44,9 @@ const routes: Routes = [
     FormsModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

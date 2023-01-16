@@ -1,0 +1,67 @@
+<div class="card bg-dark text-white">
+  <div class="card-header">{{ title }}</div>
+  <div class="card-body">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col">
+          <ul class="list-group">
+            <li class="list-group-item">{{ customer.firstName }}</li>
+            <li class="list-group-item">{{ customer.lastName }}</li>
+            <li class="list-group-item">{{ customer.email }}</li>
+            <li class="list-group-item">
+              {{ customer.birthDate | date : "fullDate" }}
+            </li>
+            <li class="list-group-item">
+              {{ customer.createDate | date : "yyyy-MM-dd HH:mm:ss" }}
+            </li>
+          </ul>
+          <div class="input-group">
+            <input
+              type="file"
+              class="form-control"
+              id="inputGroupFile04"
+              aria-describedby="inputGroupFileAddon04"
+              aria-label="Upload"
+              (change)="selectPhoto($event)"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              id="inputGroupFileAddon04"
+              [disabled]="!photoSelected"
+              (click)="uploadPhoto()"
+            >
+              Button
+            </button>
+          </div>
+          <div
+            *ngIf="progress > 0"
+            class="progress"
+            role="progressbar"
+            aria-label="Default striped example"
+            attr.aria-valuenow="{{ progress }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <div
+              class="progress-bar progress-bar-striped"
+              [ngStyle]="{ width: progress + '%' }"
+            >
+              {{ progress }}%
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <img
+            *ngIf="customer.photo"
+            src="http://localhost:8080/api/v1/customers/upload/img/{{
+              customer.photo
+            }}"
+            alt="{{ customer.photo }}"
+            class="img-thumbnail rounded"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

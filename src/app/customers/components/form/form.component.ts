@@ -18,6 +18,7 @@ export class FormComponent implements OnInit {
     email: '',
     birthDate: '',
     createDate: '',
+    photo: ''
   };
   errors: string[] = [];
 
