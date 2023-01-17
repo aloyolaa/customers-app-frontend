@@ -20,6 +20,10 @@ export class DetailComponent implements OnInit {
     birthDate: '',
     createDate: '',
     photo: '',
+    region: {
+      id: 0,
+      name: '',
+    },
   };
   photoSelected!: File;
   progress: number = 0;

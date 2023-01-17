@@ -1,3 +1,5 @@
+import { Region } from './region.model';
+
 export interface Customer {
   id: number;
   firstName: string;
@@ -6,4 +8,5 @@ export interface Customer {
   birthDate: string;
   createDate: string;
   photo: string;
+  region: Region;
 }

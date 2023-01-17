@@ -10,35 +10,48 @@
       <div class="form-group">
         <label for="firstName" class="col-form-label col-sm-2">First Name</label>
         <div class="col-sm-6">
-          <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="customer.firstName">
+          <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="customer.firstName" />
         </div>
       </div>
       <div class="form-group">
         <label for="lastName" class="col-form-label col-sm-2">Last Name</label>
         <div class="col-sm-6">
-          <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="customer.lastName">
+          <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="customer.lastName" />
         </div>
       </div>
       <div class="form-group">
         <label for="email" class="col-form-label col-sm-2">Email</label>
         <div class="col-sm-6">
-          <input type="text" id="email" name="email" class="form-control" [(ngModel)]="customer.email">
+          <input type="text" id="email" name="email" class="form-control" [(ngModel)]="customer.email" />
         </div>
       </div>
       <div class="form-group">
         <label for="birthDate" class="col-form-label col-sm-2">Birth Date</label>
         <div class="col-sm-6">
-          <input matInput [matDatepicker]="picker" name="birthDate" [(ngModel)]="customer.birthDate">
+          <input matInput [matDatepicker]="picker" name="birthDate" [(ngModel)]="customer.birthDate" />
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </div>
       </div>
       <div class="form-group">
+        <label for="region" class="col-form-label col-sm-2">Region</label>
         <div class="col-sm-6">
-          <button type="submit" class="btn btn-primary" (click)="create()" *ngIf="!customer.id else elseBlock">Save
+          <select class="form-control" name="region" [(ngModel)]="customer.region" [compareWith]="compareRegion">
+            <option [ngValue]="null">-- Select --</option>
+            <option *ngFor="let region of regions" [ngValue]="region">
+              {{ region.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <button type="submit" class="btn btn-primary" (click)="create()" *ngIf="!customer.id; else elseBlock">
+            Save
           </button>
           <ng-template #elseBlock>
-            <button type="submit" class="btn btn-primary" (click)="update()">Save
+            <button type="submit" class="btn btn-primary" (click)="update()">
+              Save
             </button>
           </ng-template>
         </div>
