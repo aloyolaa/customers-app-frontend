@@ -1,6 +1,7 @@
+import { Invoice } from './invoice.mode';
 import { Region } from './region.model';
 
-export interface Customer {
+export class Customer {
   id: number;
   firstName: string;
   lastName: string;
@@ -9,4 +10,5 @@ export interface Customer {
   createDate: string;
   photo: string;
   region: Region;
+  invoices: Invoice[] = [];
 }

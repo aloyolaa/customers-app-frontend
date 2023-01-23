@@ -1,0 +1,80 @@
+<div class="card bg-light">
+    <div class="card-header">{{ title }}: {{ invoice.description }}</div>
+    <div class="card-body" *ngIf="invoice.customer">
+        <h4 class="card-title">
+            <a [routerLink]="['/customers/detail', invoice.customer.id]" class="btn btn-light btn-xs">&laquo; Back</a>
+        </h4>
+        <form action="">
+            <div class="form-group" *ngIf="invoice.customer">
+                <label for="customer" class="col-form-label col-sm-2">Customer</label>
+                <div class="col-sm-6">
+                    <input type="text" id="customer" name="customer" class="form-control"
+                        value="{{ invoice.customer.firstName }} {{ invoice.customer.lastName }}" disabled />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="descritpion" class="col-form-label col-sm-2">Description</label>
+                <div class="col-sm-6">
+                    <input type="text" id="description" name="description" class="form-control"
+                        [(ngModel)]="invoice.description" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="observation" class="col-form-label col-sm-2">Observation</label>
+                <div class="col-sm-6">
+                    <textarea id="observation" name="observation" class="form-control"
+                        [(ngModel)]="invoice.observation">
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Number</mat-label>
+                        <input type="text" placeholder="Add Product" aria-label="Product" matInput
+                            [formControl]="autocompleteControl" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="byName"
+                            (optionSelected)="selectProduct($event)">
+                            <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
+                                {{ product.name }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="alert alert-info my-4" *ngIf="invoice.invoiceItems.length == 0">
+                Ivoice has no assigned Items
+              </div>
+            <table class="table table-striped table-hover table-sm" *ngIf="invoice.invoiceItems.length > 0">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let invoiceItem of invoice.invoiceItems">
+                        <td>{{ invoiceItem.product.name }}</td>
+                        <td>{{ invoiceItem.product.price }}</td>
+                        <td><input type="number" value="{{ invoiceItem.quantity }}" class="form-control" (change)="updateQuantity(invoiceItem.product.id, $event)"></td>
+                        <td>{{ invoiceItem.calculateAmount() }}</td>
+                        <td><button class="btn btn-danger btn-sm" (click)="deleteInvoiceItem(invoiceItem.product.id)">X</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5 class="float-right" *ngIf="invoice.invoiceItems.length > 0">
+                Total {{ invoice.calculateTotal() }}
+            </h5>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-primary" (click)="create()">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -13,19 +13,7 @@ import { Region } from 'src/app/core/model/region.model';
 })
 export class FormComponent implements OnInit {
   title = 'CustomerModel Form';
-  customer: Customer = {
-    id: 0,
-    firstName: '',
-    lastName: '',
-    email: '',
-    birthDate: '',
-    createDate: '',
-    photo: '',
-    region: {
-      id: 0,
-      name: '',
-    },
-  };
+  customer: Customer = new Customer();
   regions: Region[] = [];
   errors: string[] = [];
 

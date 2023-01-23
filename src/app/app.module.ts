@@ -9,12 +9,17 @@ import { CustomersComponent } from './customers/components/customers/customers.c
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './customers/components/form/form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { DetailComponent } from './customers/components/detail/detail.component';
+import { InvoiceDetailComponent } from './invoices/components/invoice-detail/invoice-detail.component';
+import { InvoiceFormComponent } from './invoices/components/invoice-form/invoice-form.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const routes: Routes = [
   { path: '', redirectTo: '/customers', pathMatch: 'full' },
@@ -24,6 +29,8 @@ const routes: Routes = [
   { path: 'customers/form', component: FormComponent },
   { path: 'customers/form/:id', component: FormComponent },
   { path: 'customers/detail/:id', component: DetailComponent },
+  { path: 'invoices/detail/:id', component: InvoiceDetailComponent },
+  { path: 'invoices/form/:customer_id', component: InvoiceFormComponent },
 ];
 
 @NgModule({
@@ -36,6 +43,8 @@ const routes: Routes = [
     FormComponent,
     PaginatorComponent,
     DetailComponent,
+    InvoiceDetailComponent,
+    InvoiceFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +54,10 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatMomentDateModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent],

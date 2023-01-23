@@ -4,6 +4,8 @@ import { Customer } from 'src/app/core/model/customer.model';
 import { CustomerService } from '../../service/customer.service';
 import Sweetalert2 from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
+import { Invoice } from 'src/app/core/model/invoice.mode';
+import { InvoiceService } from 'src/app/invoices/service/invoice.service';
 
 @Component({
   selector: 'app-detail',
@@ -12,24 +14,13 @@ import { HttpEventType } from '@angular/common/http';
 })
 export class DetailComponent implements OnInit {
   title = 'Customer Detail';
-  customer: Customer = {
-    id: 0,
-    firstName: '',
-    lastName: '',
-    email: '',
-    birthDate: '',
-    createDate: '',
-    photo: '',
-    region: {
-      id: 0,
-      name: '',
-    },
-  };
+  customer: Customer = new Customer();
   photoSelected!: File;
   progress: number = 0;
 
   constructor(
     private customerService: CustomerService,
+    private invoiceService: InvoiceService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -82,5 +73,44 @@ export class DetailComponent implements OnInit {
           }
         });
     }
+  }
+
+  delete(invoice: Invoice): void {
+    const withBootstrapButtons = Sweetalert2.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false,
+    });
+
+    withBootstrapButtons
+      .fire({
+        title: 'Are you sure?',
+        text: `Invoice will be deleted`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.invoiceService.delete(invoice.id).subscribe((response) => {
+            console.log(response);
+            if (response) {
+              const index = this.customer.invoices.findIndex(
+                (i) => i.id === invoice.id
+              );
+              this.customer.invoices.splice(index, 1);
+              withBootstrapButtons.fire(
+                'Invoice deleted successfully',
+                `Invoice ${invoice.description} has been deleted.`,
+                'success'
+              );
+            }
+          });
+        }
+      });
   }
 }

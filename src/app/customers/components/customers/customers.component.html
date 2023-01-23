@@ -3,21 +3,14 @@
   <div class="card-body text-primary">
     <h5 class="card-title">CustomerModel List</h5>
     <div class="my-2 text-left">
-      <button
-        type="button"
-        class="btn btn-primary"
-        [routerLink]="['/customers/form']"
-      >
+      <button type="button" class="btn btn-primary" [routerLink]="['/customers/form']">
         Create Customer
       </button>
     </div>
     <div *ngIf="customers.length == 0" class="alert alert-info">
       There are no registered customers.
     </div>
-    <table
-      class="table table-bordered table-striped"
-      *ngIf="customers.length > 0"
-    >
+    <table class="table table-bordered table-striped" *ngIf="customers.length > 0">
       <caption>
         Registered customer list
       </caption>
@@ -29,6 +22,7 @@
           <th>Email</th>
           <th>Birth Date</th>
           <th>Create Date</th>
+          <th>Add Invoice</th>
           <th>Update</th>
           <th>Delete</th>
         </tr>
@@ -36,26 +30,12 @@
       <tbody>
         <tr *ngFor="let customer of customers">
           <td>
-            <button
-              type="button"
-              [routerLink]="['/customers/detail', customer.id]"
-            >
-            <img
-              *ngIf="customer.photo"
-              src="http://localhost:8080/api/v1/customers/upload/img/{{
+            <button type="button" [routerLink]="['/customers/detail', customer.id]">
+              <img *ngIf="customer.photo" src="http://localhost:8080/api/v1/customers/upload/img/{{
                 customer.photo
-              }}"
-              alt="{{ customer.photo }}"
-              class="img-thumbnail rounded"
-              style="width: 64px; cursor: pointer;"
-            />
-            <img
-              *ngIf="!customer.photo"
-              src="http://localhost:8080/img/not-user.png"
-              alt="no photo"
-              class="img-thumbnail rounded"
-              style="width: 64px; cursor: pointer;"
-            />
+              }}" alt="{{ customer.photo }}" class="img-thumbnail rounded" style="width: 64px; cursor: pointer;" />
+              <img *ngIf="!customer.photo" src="http://localhost:8080/img/not-user.png" alt="no photo"
+                class="img-thumbnail rounded" style="width: 64px; cursor: pointer;" />
             </button>
           </td>
           <td>{{ customer.firstName }}</td>
@@ -64,22 +44,17 @@
           <td>{{ customer.birthDate | date : "EEEE dd, MMMM yyyy" }}</td>
           <td>{{ customer.createDate }}</td>
           <td>
-            <button
-              type="button"
-              name="update"
-              [routerLink]="['/customers/form', customer.id]"
-              class="btn btn-primary"
-            >
+            <button type="button" [routerLink]="['/invoices/form', customer.id]" class="btn btn-success">
+              Add Invoice
+            </button>
+          </td>
+          <td>
+            <button type="button" name="update" [routerLink]="['/customers/form', customer.id]" class="btn btn-primary">
               Update
             </button>
           </td>
           <td>
-            <button
-              type="button"
-              name="delete"
-              (click)="delete(customer)"
-              class="btn btn-danger"
-            >
+            <button type="button" name="delete" (click)="delete(customer)" class="btn btn-danger">
               Delete
             </button>
           </td>
