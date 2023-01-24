@@ -15,7 +15,13 @@ export class FormComponent implements OnInit {
   title = 'CustomerModel Form';
   customer: Customer = new Customer();
   regions: Region[] = [];
-  errors: string[] = [];
+  errors = {
+    firstName: null,
+    lastName: null,
+    email: null,
+    birthDate: null,
+    region: null,
+  };
 
   constructor(
     private customerService: CustomerService,
@@ -56,7 +62,7 @@ export class FormComponent implements OnInit {
         });
       },
       error: (err) => {
-        this.errors = err.error.errors as string[];
+        this.errors = err.error.errors;
         console.log(this.errors);
       },
     });
@@ -74,7 +80,7 @@ export class FormComponent implements OnInit {
         });
       },
       error: (err) => {
-        this.errors = err.error.errors as string[];
+        this.errors = err.error.errors;
       },
     });
   }

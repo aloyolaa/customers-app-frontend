@@ -1,8 +1,3 @@
-<ul class="alert alert-danger" *ngIf="errors.length > 0">
-  <li *ngFor="let error of errors">
-    {{ error }}
-  </li>
-</ul>
 <div class="card bg-dark text-white">
   <div class="card-header">{{ title }}</div>
   <div class="card-body">
@@ -12,17 +7,26 @@
         <div class="col-sm-6">
           <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="customer.firstName" />
         </div>
+        <div class="alert alert-danger col-sm-6" *ngIf="errors.firstName">
+          <span>{{ errors.firstName }}</span>
+        </div>
       </div>
       <div class="form-group">
         <label for="lastName" class="col-form-label col-sm-2">Last Name</label>
         <div class="col-sm-6">
           <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="customer.lastName" />
         </div>
+        <div class="alert alert-danger col-sm-6" *ngIf="errors.lastName">
+          <span>{{ errors.lastName }}</span>
+        </div>
       </div>
       <div class="form-group">
         <label for="email" class="col-form-label col-sm-2">Email</label>
         <div class="col-sm-6">
           <input type="text" id="email" name="email" class="form-control" [(ngModel)]="customer.email" />
+        </div>
+        <div class="alert alert-danger col-sm-6" *ngIf="errors.email">
+          <span>{{ errors.email }}</span>
         </div>
       </div>
       <div class="form-group">
@@ -31,6 +35,9 @@
           <input matInput [matDatepicker]="picker" name="birthDate" [(ngModel)]="customer.birthDate" />
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+        </div>
+        <div class="alert alert-danger col-sm-6" *ngIf="errors.birthDate">
+          <span>{{ errors.birthDate }}</span>
         </div>
       </div>
       <div class="form-group">
@@ -42,6 +49,9 @@
               {{ region.name }}
             </option>
           </select>
+        </div>
+        <div class="alert alert-danger col-sm-6" *ngIf="errors.region">
+          <span>{{ errors.region }}</span>
         </div>
       </div>
       <div class="form-group">
