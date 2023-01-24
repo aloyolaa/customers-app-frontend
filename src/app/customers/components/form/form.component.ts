@@ -46,12 +46,13 @@ export class FormComponent implements OnInit {
   create(): void {
     this.customerService.save(this.customer).subscribe({
       next: (customer) => {
-        this.router.navigate(['/customers']);
-        console.log(customer);
-        Sweetalert2.fire({
-          icon: 'success',
-          title: 'Customer saved successfully',
-          text: `Customer ${customer.firstName} has been saved`,
+        this.router.navigate(['/customers']).then((c) => {
+          console.log(customer);
+          Sweetalert2.fire({
+            icon: 'success',
+            title: 'Customer saved successfully',
+            text: `Customer ${customer.firstName} has been saved`,
+          });
         });
       },
       error: (err) => {
@@ -64,11 +65,12 @@ export class FormComponent implements OnInit {
   update(): void {
     this.customerService.update(this.customer).subscribe({
       next: (customer) => {
-        this.router.navigate(['/customers']);
-        Sweetalert2.fire({
-          icon: 'success',
-          title: 'Customer updated successfully',
-          text: `Customer ${customer.firstName} has been updated`,
+        this.router.navigate(['/customers']).then(() => {
+          Sweetalert2.fire({
+            icon: 'success',
+            title: 'Customer updated successfully',
+            text: `Customer ${customer.firstName} has been updated`,
+          });
         });
       },
       error: (err) => {

@@ -53,12 +53,13 @@ export class InvoiceFormComponent implements OnInit {
     console.log(this.invoice);
     this.invoiceService.save(this.invoice).subscribe({
       next: (invoice) => {
-        this.router.navigate(['/customers']);
-        console.log(invoice);
-        Sweetalert2.fire({
-          icon: 'success',
-          title: 'Invoice saved successfully',
-          text: `Invoice ${invoice.description} has been saved`,
+        this.router.navigate(['/customers']).then(() => {
+          console.log(invoice);
+          Sweetalert2.fire({
+            icon: 'success',
+            title: 'Invoice saved successfully',
+            text: `Invoice ${invoice.description} has been saved`,
+          });
         });
       },
       error: (err) => {
